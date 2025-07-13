@@ -76,3 +76,31 @@ def grab_speed_region(screen):
     # 너비, 높이를 더 크게 설정하고 위로 살짝 이동
     x, y, w, h = 1180, 660, 100, 50
     return screen[y:y+h, x:x+w]
+
+
+
+'''  
+# preprocess_for_yolopv2.py 마지막에 추가
+def letterbox(img, new_shape=(640, 640), color=(114, 114, 114)):
+    shape = img.shape[:2]  # current shape [height, width]
+    if isinstance(new_shape, int):
+        new_shape = (new_shape, new_shape)
+
+    # scale ratio (new / old) and compute padding
+    r = min(new_shape[0] / shape[0], new_shape[1] / shape[1])
+    ratio = r, r  # width, height ratios
+    new_unpad = int(round(shape[1] * r)), int(round(shape[0] * r))
+    dw, dh = new_shape[1] - new_unpad[0], new_shape[0] - new_unpad[1]
+    dw /= 2  # divide padding into 2 sides
+    dh /= 2
+
+    # resize
+    img = cv2.resize(img, new_unpad, interpolation=cv2.INTER_LINEAR)
+
+    # padding
+    top, bottom = int(round(dh - 0.1)), int(round(dh + 0.1))
+    left, right = int(round(dw - 0.1)), int(round(dw + 0.1))
+    img = cv2.copyMakeBorder(img, top, bottom, left, right, cv2.BORDER_CONSTANT, value=color)
+
+    return img, ratio, (dw, dh)
+'''
